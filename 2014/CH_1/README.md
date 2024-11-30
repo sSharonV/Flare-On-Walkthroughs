@@ -30,6 +30,7 @@ Let's dive into the steps!
 ## Step 1: Die Recognizes the File as .NET
 
 The first step is to recognize that the file is a `.NET` executable. We can use a tool like **Die** to verify the file type.
+![1 - DIE dotnet](images/1-die-dotnet.png)
 
 ![2 - exe before decode](images/2-exe-before-decode.png)
 
