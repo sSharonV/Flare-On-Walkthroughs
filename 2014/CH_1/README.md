@@ -26,9 +26,10 @@ Let's dive into the steps!
 
 ---
 
-## Step 1: Die Recognizes the File as .NET
+## Step 1: DIE Recognizes the File as .NET
 
 The first step is to recognize that the file is a `.NET` executable. We can use a tool like **Die** to verify the file type.
+
 ![1 - DIE dotnet](images/1-die-dotnet.png)
 
 After executing the binary, we observe that it runs and performs some operation, but the secret is not visible yet.
@@ -88,12 +89,13 @@ The script will decode the content of the `rev_challenge_1.dat_secret.encode` fi
 ## Step 5: The Flag
 
 After running the decoding script, we observe the decoded output and find the hidden flag:
+
 ![7 - found flag](images/7-found-flag.png)
 
-**Flag**:  
-```
-3rmahg3rd.b0b.d0ge@flare-on.com
-```
+- **Flag**:  
+   ```
+   3rmahg3rd.b0b.d0ge@flare-on.com
+   ```
 
 ---
 
