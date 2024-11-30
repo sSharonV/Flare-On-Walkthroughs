@@ -6,10 +6,9 @@ Welcome to the walkthrough for solving one of the Flare-On challenges! In this g
 1. [Introduction](#introduction)
 2. [Step 1: Die Recognizes the File as .NET](#step-1-die-recognizes-the-file-as-net)
 3. [Step 2: Decompiling the File with DnSpy](#step-2-decompiling-the-file-with-dnspy)
-4. [Step 3: Exploring the `btnDecode_Click` Function](#step-3-exploring-the-btndecodeclick-function)
+4. [Step 3: Exploring the `btnDecode_Click` Function](#step-3-exploring-the-btndecode_click-function)
 5. [Step 4: Decoding with Python](#step-4-decoding-with-python)
 6. [Step 5: The Flag](#step-5-the-flag)
-7. [Conclusion](#conclusion)
 
 ---
 
@@ -32,11 +31,14 @@ Let's dive into the steps!
 The first step is to recognize that the file is a `.NET` executable. We can use a tool like **Die** to verify the file type.
 ![1 - DIE dotnet](images/1-die-dotnet.png)
 
-![2 - exe before decode](images/2-exe-before-decode.png)
-
 After executing the binary, we observe that it runs and performs some operation, but the secret is not visible yet.
+- Before
 
-![3 - exe after decode](images/3-exe-after-decode.png)
+   ![2 - exe before decode](images/2-exe-before-decode.png)
+
+- After
+  
+   ![3 - exe after decode](images/3-exe-after-decode.png)
 
 ---
 
@@ -72,9 +74,8 @@ Now that we have the `dat_secret` file, we can proceed with decoding it. The dec
 
 ### How to Decode `dat_secret`
 
-1. Download or clone this repository.
-2. Ensure that the **Python script (`decode_dat_secret.py`)** and the **binary file (`rev_challenge_1.dat_secret.encode`)** are in the same directory as this `README.md`.
-3. Run the script by executing the following command in your terminal:
+1. Ensure that the **Python script (`decode_dat_secret.py`)** and the **binary file (`rev_challenge_1.dat_secret.encode`)** are in the same directory as this `README.md`.
+2. Run the script by executing the following command in your terminal:
    
    ```bash
    python decode_dat_secret.py
@@ -87,21 +88,12 @@ The script will decode the content of the `rev_challenge_1.dat_secret.encode` fi
 ## Step 5: The Flag
 
 After running the decoding script, we observe the decoded output and find the hidden flag:
+![7 - found flag](images/7-found-flag.png)
 
 **Flag**:  
 ```
 3rmahg3rd.b0b.d0ge@flare-on.com
 ```
-
-![7 - found flag](images/7-found-flag.png)
-
----
-
-## Conclusion
-
-Congratulations, you've successfully decoded the hidden message in the Flare-On challenge! By using DnSpy to decompile the `.NET` executable and implementing the decoding logic in Python, we were able to reveal the flag.
-
-This walkthrough demonstrates the power of reverse engineering and scripting to solve real-world challenges. Keep practicing, and happy hacking!
 
 ---
 
@@ -110,11 +102,3 @@ This walkthrough demonstrates the power of reverse engineering and scripting to 
 - **Flare-On**: A series of reverse engineering challenges.
 
 ---
-
-### Notes:
-- Ensure that the **Python script (`decode_dat_secret.py`)** and the **binary file (`rev_challenge_1.dat_secret.encode`)** are both in the same directory as the `README.md` file.
-- The images referenced in this README (`images/2-exe-before-decode.png`, etc.) should be placed in a subdirectory named `images` inside the same directory as the `README.md` file.
-
----
-
-In this version, the Python code is **not shown directly** in the `README.md`. Instead, it is referenced and the user is instructed to run the script (`decode_dat_secret.py`) provided with the repository. This keeps the README clean and professional, while still making the Python decoding process accessible to users.
