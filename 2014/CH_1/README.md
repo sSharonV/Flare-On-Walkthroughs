@@ -98,7 +98,8 @@ After running the decoding script, we observe the decoded output and find the hi
 ---
 
 ### References
+- **DIE**: A powerful tool for analyzing binary files. It helps identify file formats, detect embedded resources, and extract valuable information from executable files.
 - **DnSpy**: A tool for decompiling .NET assemblies.
-- **Flare-On**: A series of reverse engineering challenges.
+
 
 ---
