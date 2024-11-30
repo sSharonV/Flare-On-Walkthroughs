@@ -1,52 +1,119 @@
-### Challenge1.exe - .NET
+# Flare-On 2014 Challenge 1 Walkthrough: Decoding `dat_secret`
 
-This walkthrough details the process of **extracting and decoding a secret** from a `.NET` executable (`Challenge1.exe`) and discovering the hidden **FLAG**.
+Welcome to the walkthrough for solving one of the Flare-On challenges! In this guide, we’ll break down the process of extracting the flag hidden within a `.NET` executable. The challenge involves decoding a secret embedded in the binary, and we will use tools such as DnSpy and Python to reveal the flag.
 
----
-
-#### 1. **Opening `Challenge1.exe` with DnSpy**
-
-- Start by opening the executable file `Challenge1.exe` in **DnSpy**, a popular .NET decompiler.
-  - DnSpy allows us to view the source code of .NET applications, which helps reverse engineer the logic behind the challenge.
-
----
-
-#### 2. **Navigating to the Embedded Secret in Resources**
-
-- In DnSpy, expand the **Resources** section.
-  - Look for a resource named **`rev_challenge_1.dat_secret.encode`**.
-  - This is the embedded file containing the encoded secret.
-  
-- **Save the binary resource** by right-clicking on it and selecting **Save**.
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Step 1: Die Recognizes the File as .NET](#step-1-die-recognizes-the-file-as-net)
+3. [Step 2: Decompiling the File with DnSpy](#step-2-decompiling-the-file-with-dnspy)
+4. [Step 3: Exploring the `btnDecode_Click` Function](#step-3-exploring-the-btndecodeclick-function)
+5. [Step 4: Decoding with Python](#step-4-decoding-with-python)
+6. [Step 5: The Flag](#step-5-the-flag)
+7. [Conclusion](#conclusion)
 
 ---
 
-#### 3. **Inspecting the Secret with DIE**
+## Introduction
 
-- Next, open the saved resource file (`rev_challenge_1.dat_secret.encode`) with **DIE (Detect It Easy)**, a tool used to analyze file structures and display their hexadecimal content.
-  
-- The secret is encoded in **hexadecimal format** and can be seen as a string of bytes:
-  ```
-  a1b5448414e4a1b5d470b491b470d491e4c496f45484b5c440647470a46444
-  ```
-  - These hexadecimal values represent the encoded secret hidden within the resource.
+In this challenge, we are tasked with decoding a secret hidden in a `.NET` executable. The secret is embedded in a resource called `dat_secret`. We will decompile the binary, analyze its decoding function, and then implement the decoding steps in Python to reveal the flag.
 
----
+The decoding process consists of three main phases:
 
-#### 4. **Decoding the Secret with a Python Script**
+1. **Bitwise operation and XOR with 41**
+2. **Reversing pairs of bytes**
+3. **XORing each byte with 102**
 
-- Use the provided Python script, **`ch_1_sol.py`**, to decode the secret.
-  - The hex-encoded string is passed as input to the script.
-
-- Upon successful execution of `ch_1_sol.py`, the **decoded FLAG** is revealed:
-  ```
-  FLAG: 3rmahg3rd.b0b.d0ge@flare-on.com
-  ```
+Let's dive into the steps!
 
 ---
 
-### Conclusion
+## Step 1: Die Recognizes the File as .NET
 
-This process involved using **DnSpy** to extract an embedded resource from a .NET executable, inspecting the resource with **DIE** to view its hex-encoded contents, and then using a Python script to decode and reveal the hidden **FLAG**. The decoded flag is a **coded email address**, which is the intended solution for this challenge.
+The first step is to recognize that the file is a `.NET` executable. We can use a tool like **Die** to verify the file type.
 
-Let me know if you'd like to dive deeper into any specific part of the process or need additional assistance!
+![2 - exe before decode](images/2-exe-before-decode.png)
+
+After executing the binary, we observe that it runs and performs some operation, but the secret is not visible yet.
+
+![3 - exe after decode](images/3-exe-after-decode.png)
+
+---
+
+## Step 2: Decompiling the File with DnSpy
+
+Next, we use **DnSpy** to decompile the `.NET` executable and explore its contents. DnSpy is a powerful tool for examining and decompiling `.NET` assemblies.
+
+![4 - dnspy start](images/4-dnspy-start.png)
+
+---
+
+## Step 3: Exploring the `btnDecode_Click` Function
+
+In DnSpy, we locate the method `btnDecode_Click` which is responsible for decoding the `dat_secret` resource. This method reveals the three key phases of the decoding process. Here's a breakdown of what happens:
+
+- **Phase 1**: Bitwise operation and XOR with 41
+- **Phase 2**: Reverse pairs of bytes
+- **Phase 3**: XOR each byte with 102
+
+We notice that `dat_secret` is stored as a binary resource within the application. To proceed, we can extract it as a separate file.
+
+![5 - dat_secret](images/5-dat-secret.png)
+
+This confirms that `dat_secret` is crucial for the decoding process, and we can save it as a binary resource.
+
+![6 - dat_secret resource](images/6-dat-secret-resource.png)
+
+---
+
+## Step 4: Decoding with Python
+
+Now that we have the `dat_secret` file, we can proceed with decoding it. The decoding process is implemented in a Python script provided with this repository.
+
+### How to Decode `dat_secret`
+
+1. Download or clone this repository.
+2. Ensure that the **Python script (`decode_dat_secret.py`)** and the **binary file (`rev_challenge_1.dat_secret.encode`)** are in the same directory as this `README.md`.
+3. Run the script by executing the following command in your terminal:
+   
+   ```bash
+   python decode_dat_secret.py
+   ```
+
+The script will decode the content of the `rev_challenge_1.dat_secret.encode` file and print out the intermediate results at each phase of the decoding process. This will help you visualize how the data is transformed step by step.
+
+---
+
+## Step 5: The Flag
+
+After running the decoding script, we observe the decoded output and find the hidden flag:
+
+**Flag**:  
+```
+3rmahg3rd.b0b.d0ge@flare-on.com
+```
+
+![7 - found flag](images/7-found-flag.png)
+
+---
+
+## Conclusion
+
+Congratulations, you've successfully decoded the hidden message in the Flare-On challenge! By using DnSpy to decompile the `.NET` executable and implementing the decoding logic in Python, we were able to reveal the flag.
+
+This walkthrough demonstrates the power of reverse engineering and scripting to solve real-world challenges. Keep practicing, and happy hacking!
+
+---
+
+### References
+- **DnSpy**: A tool for decompiling .NET assemblies.
+- **Flare-On**: A series of reverse engineering challenges.
+
+---
+
+### Notes:
+- Ensure that the **Python script (`decode_dat_secret.py`)** and the **binary file (`rev_challenge_1.dat_secret.encode`)** are both in the same directory as the `README.md` file.
+- The images referenced in this README (`images/2-exe-before-decode.png`, etc.) should be placed in a subdirectory named `images` inside the same directory as the `README.md` file.
+
+---
+
+In this version, the Python code is **not shown directly** in the `README.md`. Instead, it is referenced and the user is instructed to run the script (`decode_dat_secret.py`) provided with the repository. This keeps the README clean and professional, while still making the Python decoding process accessible to users.
