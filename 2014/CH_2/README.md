@@ -21,16 +21,14 @@ We'll walk through the steps of inspecting `home.html`, extracting PHP code from
 
 ## Step 1: Inspect `home.html` with Browser Developer Tools
 
+![1 - Home Page](images/1-home-page.png)
+
 1. **Open `home.html` in a browser**:
    - With developer tools enabled, open the `home.html` file.
    - Upon inspection, you'll notice that the HTML contains an image tag for `img/flare-on.png` and an embedded PHP script.
    - Specifically, you’ll see an unconventional PHP `include` statement inside a `<script>` tag, like this:
 
-     ```html
-     <script src=...</script>
-     <!--?php include "img/flare-on.png" ?-->
-     <script src=...</script>
-     ```
+     ![2 - Inspected HTML](images/2-inspected-html.png)
 
 2. **What this indicates**:
    - This suggests that PHP code might be embedded in the `flare-on.png` image file. We’ll need to analyze the image to extract the PHP code and proceed with further decoding.
@@ -45,13 +43,14 @@ We'll walk through the steps of inspecting `home.html`, extracting PHP code from
    - Search for the string `<?php` to locate where the PHP code begins in the image.
 
 2. **Extract the PHP code**:
-   - We find the PHP code starting at offset `0x19c4` in the file.
+   - The PHP code starts at offset `0x19c4` in the file.
+     ![3 - PHP in Png](images/3-php-in-png.png)
    - Copy the PHP code from this offset and save it to a new file called `extracted_php.php`.
 
 3. **PHP Code Breakdown**:
     - Contains an array `$terms` with 80 characters and another array `$order` that defines the order in which these characters will be rearranged to form a string.
     - Uses the `$order` array to shuffle characters from the `$terms` array to create a string. The result is stored in the `$do_me` variable, which will be executed later as part of the hidden payload.
-
+      ![5 - Extracted PHP](images/5-extracted-php.png)
 ---
 
 ## Step 3: Decode the PHP Code and Extract JavaScript
@@ -70,8 +69,9 @@ We'll walk through the steps of inspecting `home.html`, extracting PHP code from
    ```
 
    The Python script prints the resulting value of `$do_me`, which contains a Base64-encoded JavaScript code.
+      ![4 - Printed Do_me](images/4-printed-do-me.png)
    
-2. **Base64 Decoding**:
+3. **Base64 Decoding**:
    - We then use the Python script `convert_js.py` to decode the Base64-encoded JavaScript.
    - The process involves:
      - Decoding two Base64-encoded strings: one for `$_` and another for `$__`.
