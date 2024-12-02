@@ -3,12 +3,13 @@
 Welcome to the walkthrough for solving one of the Flare-On challenges! In this guide, we’ll break down the process of extracting the flag hidden within a `.NET` executable. The challenge involves decoding a secret embedded in the binary, and we will use tools such as DnSpy and Python to reveal the flag.
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Step 1: Die Recognizes the File as .NET](#step-1-die-recognizes-the-file-as-net)
-3. [Step 2: Decompiling the File with DnSpy](#step-2-decompiling-the-file-with-dnspy)
-4. [Step 3: Exploring the `btnDecode_Click` Function](#step-3-exploring-the-btndecode_click-function)
-5. [Step 4: Decoding with Python](#step-4-decoding-with-python)
-6. [Step 5: The Flag](#step-5-the-flag)
+- [Introduction](#introduction)
+- [Step 1: Die Recognizes the File as .NET](#step-1-die-recognizes-the-file-as-net)
+- [Step 2: Decompiling the File with DnSpy](#step-2-decompiling-the-file-with-dnspy)
+- [Step 3: Exploring the `btnDecode_Click` Function](#step-3-exploring-the-btndecode_click-function)
+- [Step 4: Decoding with Python](#step-4-decoding-with-python)
+- [Step 5: The Flag](#step-5-the-flag)
+- [References](#references)
 
 ---
 
