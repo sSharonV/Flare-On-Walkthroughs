@@ -81,7 +81,7 @@ We'll walk through the steps of inspecting `home.html`, extracting PHP code from
      - Decoding two Base64-encoded strings: one for `$_` and another for `$__`.
      - Combining both strings to form a partially obfuscated JavaScript code.
 
-   The Python script also decodes hexadecimal (`\x4F`) and decimal (`\97`) escape sequences in the decoded code. This results in the following final JavaScript code:
+   - The Python script also decodes hexadecimal (`\x4F`) and decimal (`\97`) **escape sequences** in the decoded code. This results in the following final JavaScript code:
 
    ```javascript
    if (isset($_POST["a11DOTthatDOTjava5crapATflareDASHonDOTcom"])) { 
