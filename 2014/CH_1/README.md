@@ -1,6 +1,6 @@
 # Flare-On 2014 Challenge 1 Walkthrough: Decoding `dat_secret`
 
-Welcome to the walkthrough for solving one of the Flare-On challenges! In this guide, we’ll break down the process of extracting the flag hidden within a `.NET` executable. The challenge involves decoding a secret embedded in the binary, and we will use tools such as DnSpy and Python to reveal the flag.
+Welcome to the walkthrough for solving one of the Flare-On challenges! In this guide, we’ll break down the process of extracting the flag hidden within a `.NET` executable.
 
 ## Table of Contents
 - [Introduction](#introduction)
