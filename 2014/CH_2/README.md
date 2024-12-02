@@ -1,6 +1,6 @@
 # Flare-On Challenge Walkthrough 2014: **`home.html`** Analysis
 
-In this walkthrough, we’ll break down the process of analyzing the `home.html` file from the Flare-On challenge. This guide will help you extract and decode a hidden PHP-encoded script embedded in a PNG image. By leveraging Python scripts and a hex editor, we will decode the hidden content and reveal the payload.
+In this walkthrough, we’ll break down the process of analyzing the `home.html` file from the Flare-On challenge.  We will uncover the hidden content and extract the payload by utilizing Python scripts along with a hex editor.
 
 ## Table of Contents
 - [Introduction](#introduction)
