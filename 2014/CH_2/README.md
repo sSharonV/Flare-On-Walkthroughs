@@ -44,12 +44,15 @@ We'll walk through the steps of inspecting `home.html`, extracting PHP code from
 
 2. **Extract the PHP code**:
    - The PHP code starts at offset `0x19c4` in the file.
+
      ![3 - PHP in Png](images/3-php-in-png.png)
+     
    - Copy the PHP code from this offset and save it to a new file called `extracted_php.php`.
 
 3. **PHP Code Breakdown**:
     - Contains an array `$terms` with 80 characters and another array `$order` that defines the order in which these characters will be rearranged to form a string.
     - Uses the `$order` array to shuffle characters from the `$terms` array to create a string. The result is stored in the `$do_me` variable, which will be executed later as part of the hidden payload.
+      
       ![5 - Extracted PHP](images/5-extracted-php.png)
 ---
 
@@ -69,6 +72,7 @@ We'll walk through the steps of inspecting `home.html`, extracting PHP code from
    ```
 
    The Python script prints the resulting value of `$do_me`, which contains a Base64-encoded JavaScript code.
+   
       ![4 - Printed Do_me](images/4-printed-do-me.png)
    
 3. **Base64 Decoding**:
@@ -110,4 +114,5 @@ The de-obfuscated JavaScript reveals an important action: it checks for a specif
 
 - **Base64 Decoder**: Often used to obfuscate data, and decoding it reveals the original payload.
 
-Escape Sequence Decoder: The final step involved decoding hexadecimal and decimal escape sequences. These sequences represent characters encoded in a way that obfuscates the code further, and resolving them makes the code readable and executable.
+- **Escape Sequence Decoder**: The final step involved decoding hexadecimal and decimal escape sequences.
+   - These sequences represent characters encoded in a way that obfuscates the code further, and resolving them makes the code readable and executable.
