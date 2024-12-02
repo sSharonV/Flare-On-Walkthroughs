@@ -11,7 +11,7 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 ## Flare-On 2014
 
 - **Challenge 1**: [Decoding `dat_secret`](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2014/CH_1/README.md)  
-  Decoding a secret embedded in the binary, we will use tools such as DnSpy and Python to reveal the flag.
+  Decode a hidden secret from the binary by utilizing tools like DnSpy to decode and reveal the secret.
   
 - **Challenge 2**: [**`home.html`** Analysis](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2014/CH_2/README.md)  
   Extract and decode a hidden PHP-encoded script embedded in a PNG image.
