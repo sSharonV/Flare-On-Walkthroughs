@@ -1,4 +1,4 @@
-# Flare-On Challenge Walkthrough 2014: **`home.html`** Analysis
+# Flare-On 2014 Challenge 2 Walkthrough: **`home.html`** Analysis
 
 In this walkthrough, we’ll break down the process of analyzing the `home.html` file from the Flare-On challenge.  We will uncover the hidden content and extract the payload by utilizing Python scripts along with a hex editor.
 
