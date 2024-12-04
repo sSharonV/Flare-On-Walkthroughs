@@ -71,7 +71,8 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 
 2. After executing this block, we observe the following in memory:
     - The first string `and so it be`.
-  ![Stage 1](images/5-Stage-1-written.png)
+      
+      ![Stage 1](images/5-Stage-1-written.png)
 
 ---
 
