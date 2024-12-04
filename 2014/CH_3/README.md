@@ -34,6 +34,8 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 
   - This behavior may indicate a handled exception within the application rather than a genuine error message.
 
+- The following reference can be consulted for a deeper understanding of `sub_4025D1` and the implementation of the SEH exception handler. However, this step is not required for addressing the flag in this challenge.
+  - [Understanding Windows Structured Exception Handling Part 2 – Digging Deeper](https://limbioliong.wordpress.com/2022/01/18/understanding-windows-structured-exception-handling-part-2-digging-deeper/)
 ---
 
 ## Step 2: Handling the Packed Executable
