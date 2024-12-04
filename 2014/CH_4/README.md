@@ -9,7 +9,7 @@ This walkthrough details the process of analyzing a **malicious PDF** that conta
 - [Step 1: Initial PDF Analysis with pdf-parser](#step-1-initial-pdf-analysis-with-pdf-parser)
 - [Step 2: Investigating PDF Objects](#step-2-investigating-pdf-objects)
 - [Step 3: Extracting and Deobfuscating the JS](#step-3-extracting-and-deobfuscating-the-js)
-- [Step 4: Unescaping and Analyzing the Shellcode](#step-4-unescaping-and-analyzing-the-shellcode)
+- [Step 4: Analyzing the JS and extract the Shellcode](#step-4-analyzing-the-js-and-extract-the-shellcode)
 - [Step 5: Correcting Byte Order: Little Endian](#step-5-correcting-byte-order-little-endian)
 - [Step 6: Converting Shellcode to Executable](#step-6-converting-shellcode-to-executable)
 - [Step 7: Debugging the Shellcode](#step-7-debugging-the-shellcode)
@@ -55,7 +55,7 @@ Next, we investigate object 6 - `JavaScript` object within the PDF:
 
 ---
 
-## Step 3: Extracting and Deobfuscating the JavaScript
+## Step 3: Extracting and Deobfuscating the JS
 
 1. Now, we extract the obfuscated JavaScript content and attempt to deobfuscate it:
     - Dump the content of object **6** with the following command:
