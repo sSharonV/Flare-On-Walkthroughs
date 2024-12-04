@@ -9,11 +9,11 @@ This walkthrough details the process of analyzing a **packed executable** contai
 - [Step 1:  Initial Analysis with DIE](#step-1-initial-analysis-with-die)
 - [Step 2: Handling the Packed Executable](#step-2-handling-the-packed-executable)
 - [Step 3: Identifying Shellcode Construction](#step-3-identifying-shellcode-construction)
-- [Step 4: Stage 1: `and so it be`](#step-4-dynamic-debugging-tracking-shellcode-creation)
-- [Step 5: Stage 2: `get ready to get nop'ed so damn hard in the paint`](#step-5-further-debugging-the-shellcode)
-- [Step 6: Stage 3: `omg is it almost over?!?`](#step-7-xor-key-analysis-nopasaurus)
-- [Step 10: The FLAG](#step-10-the-flag)
-- [Conclusion](#conclusion)
+- [Step 4: Stage 1: `and so it be`](#step-4-stage-1-and-so-it-be)
+- [Step 5: Stage 2: `get ready to get nop'ed so damn hard in the paint`](#step-5-stage-2-get-ready-to-get-noped-so-damn-hard-in-the-paint)
+- [Step 6: Stage 3: `omg is it almost over?!?`](#step-6-stage-3-omg-is-it-almost-over)
+- [Step 7: The FLAG](#step-7-the-flag)
+- [References](#references)
 
 ---
 
@@ -25,9 +25,11 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 
 ## Step 1: Initial Analysis with DIE
 
-- We begin the analysis by inspecting the file with **DIE**, which indicates that the file is an **executable**. 
+- We begin the analysis by inspecting the file with **DIE**, which indicates that the file is an **executable**.
+  
   ![DIE Output](images/0-die-output.png)
 - Upon executing the file, we encounter a **Fatal application exit error**. This error likely suggests an issue with the file’s structure, potentially related to a **corrupted byte** or packing.
+
   ![BrokenByte](images/0-brokeb-byte.png)
 
   - This behavior may indicate a handled exception within the application rather than a genuine error message.
@@ -38,7 +40,7 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 
 - Next, we open the file in **IDA Pro** for static analysis. Upon loading, IDA displays an error indicating that the file is packed, likely due to a **corrupted import segment**.
 
-  ![Packed Warning](images/0-may-be-packer-warning.png)
+    ![Packed Warning](images/0-may-be-packer-warning.png)
 
 ---
 
@@ -47,17 +49,19 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 1. To proceed with the static analysis, we focus on the error triggered when executing `sub_401000`.
 
     - This occurs when attempting to execute the instruction referencing `0x0019FD33`, which is supposed to jump to the shellcode.
+      
       ![SC Call](images/1-shell_code_written.png)
 
 2. Note the call eax which is probably the call to the shellcode in the memory. 
     - We can see it's starting instructions:
+      
       ![Executed SC](images/1-shellcode-executed-stack.png)
 
 **At this point, we begin tracking how the memory is populated with the shellcode at various stages.**
 
 ---
 
-## Step 4: Stage 1 - `and so it be`
+## Step 4: Stage 1: `and so it be`
 
 - To gain a better understanding of the shellcode construction, we use **dynamic debugging** and set breakpoints at key locations in the shellcode.
 
@@ -71,7 +75,7 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 
 ---
 
-## Step 5: Stage 2 - `get ready to get nop'ed so damn hard in the paint`
+## Step 5: Stage 2: `get ready to get nop'ed so damn hard in the paint`
 
 - The analysis continues as the next stage performs an XOR operation on the content of ESI with a password pushed onto the stack:
     
@@ -85,7 +89,7 @@ In this challenge, we are tasked with unpacking a **packed executable** that con
 
 ---
 
-## Step 6: Stage 3 - `omg is it almost over?!?`
+## Step 6: Stage 3: `omg is it almost over?!?`
 
 - In the next stage, another XOR operation occurs, followed by several NOP operations. A string is pushed onto the stack:
 
