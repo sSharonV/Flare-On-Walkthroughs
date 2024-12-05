@@ -22,7 +22,7 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
 - **Challenge 4**: [Malicious PDF with Shellcode](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_4)
 
-  - Extract a shellcode from a PDF and employ dynamic debugging techniques to decode the flag in memory.
+  - Analyze a PDF document and decode a hidden shellcode in obfuscated JavaScript.
 
 ---
 
