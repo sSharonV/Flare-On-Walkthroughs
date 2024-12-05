@@ -83,21 +83,26 @@ Next, we investigate object 6 - `JavaScript` object within the PDF:
   var MPBPtdcBjTlpvyTYkSwgkrWhXL = "";
   ```
 - Before trying to decode all the script let's focus on the escaped strings:
-- Use the **deobfu_escaped.py** script to:
+- Use the **deobfu_escaped.py** script
+  -  Converts **%uXXXX** Unicode escapes into actual ASCII characters:
 
- 1. `little_endian_encoded_shellcode.bin` - Convert **%uXXXX** Unicode escapes into actual ASCII characters.
+ 1. `little_endian_encoded_shellcode.bin`
+    
     ![Little-Endian encoding](images/4-encoded-little-endian-sc.png)
 
-    - _Notice_: The data is shown in reversed order (little-endian)
+    - _Notice_: The data is shown in reversed order (big-endian)
                 -  [Little-Endian in IDA - binary search](https://hex-rays.com/blog/igors-tip-of-the-week-48-searching-in-ida)
 
-  - The script will also decode little-endian dumped binary data.
+  - The script will also decode little-endian dumped binary data (from big-endian to little-endian)
 ---
 
 ## Step 5: Correcting Byte Order: Little Endian
 
-2. `little_endian_decoded_shellcode.bin` - Reverse any pair of hex-values
-  ![Little-Endian decoding](images/4-decoded-little-endian-sc.png)
+2. `little_endian_decoded_shellcode.bin`
+   
+    - Reverse any pair of hex-values
+      
+      ![Little-Endian decoding](images/4-decoded-little-endian-sc.png)
 
 ---
 
@@ -110,7 +115,7 @@ A shellcode cannot be executed without an executable that will make it happen.
   python ./shcode2exe.py -o little_endian_sc.exe little_endian_decoded_shellcode.bin
   ```
 
-  - **Shellcode to EXE**: [shcode2exe](https://github.com/accidentalrebel/shcode2exe)
+  - **Shellcode to EXE - GitHub**: [shcode2exe](https://github.com/accidentalrebel/shcode2exe)
 
 ---
 
