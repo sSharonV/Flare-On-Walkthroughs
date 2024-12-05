@@ -20,7 +20,10 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
   - Analyzing a packed executable with shellcode by employing dynamic debugging techniques to progressively decode the shellcode in memory.
 
-- **challenge 4**: [TBD](TBD)
+- **Challenge 4**: [Malicious PDF with Shellcode](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_4)
+
+  - Extract a shellcode from a PDF and employ dynamic debugging techniques to decode the flag in memory.
+
 ---
 
 ## Flare-On 2015
