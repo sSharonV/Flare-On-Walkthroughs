@@ -20,10 +20,9 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
   - Analyzing a packed executable with shellcode by employing dynamic debugging techniques to progressively decode the shellcode in memory.
 
-- **Challenge 4**: [Malicious PDF with Shellcode](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_4)
+- **Challenge 4**: [Hidden Shellcode in Obfuscated JavaScript and PDF Document](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_4)
 
-  - Analyze a PDF document and decode a hidden shellcode in obfuscated JavaScript.
-
+  - Analyze a PDF file containing obfuscated JavaScript and uncover the hidden shellcode within it.
 ---
 
 ## Flare-On 2015
