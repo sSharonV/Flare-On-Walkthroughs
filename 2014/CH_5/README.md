@@ -8,8 +8,8 @@ Welcome to the walkthrough of solving a **Flare-On challenge**! In this guide, w
 - [Introduction](#introduction)
 - [Step 1: DIE Recognizes the File as a DLL](#step-1-die-recognizes-the-file-as-a-dll)
 - [Step 2: Static Analysis with IDA Pro](#step-2-static-analysis-with-ida-pro)
-- [Step 3: Investigating the Keylogging Function](#step-3-investigating-the-keylogging-function)
-- [Step 4: Understanding the Flag Sequence Using X-Refs](#step-4-understanding-the-flag-sequence-using-x-refs)
+- [Step 3: Investigating the Keylogging Wrapper](#step-3-investigating-the-keylogging-wrapper)
+- [Step 4: Understand the Flag sequence](#step-4-understand-the-flag-sequence)
 - [Step 5: Extracting the FLAG](#step-5-extracting-the-flag)
   - [IDAPython Helper Script](#idapython-helper-script)
   - [Key Functions](#key-functions)
@@ -85,27 +85,32 @@ Next, we open the **DLL** file in **IDA Pro** for a more detailed static analysi
   - On a valid press the loop will break and continue to `switch` statement.
 
 1. Depending on the key pressed, the program triggers different actions (switch-case). For example:
-  - Some keys contribute to a sequence.
-  - Some keys reset the sequence.
-  - Notably, pressing the letter **'m'** triggers a function that prints the **Flare-On logo**.
+    - Some keys contribute to a sequence.
+    - Some keys reset the sequence.
+    - Notably, pressing the letter **'m'** triggers a function that prints the **Flare-On logo**.
 
 2. Checking some of the functions reveals:
     - Letter `s`:
+      
       ![Letter S](images/1-letter-s.png)
 
     - Letter `p`:
+      
       ![Letter P](images/1-letter-p.png)
 
 3. `_cfltcvt_init()` seems to be some reset function:
-  ![Init func](images/1-init-func.png)
+   
+    ![Init func](images/1-init-func.png)
 
     - It's look like there is a correlation between the dwords in the functions for the chars:
-    ![Wanted chars](images/1-xrefs_dwords_from_init.png)
+    
+      ![Wanted chars](images/1-xrefs_dwords_from_init.png)
 
     - Let's check what would make this dword marked:
+      
       ![Wanted dword](images/1-wanted-dword.png)
 
-4. This pattern made me suspect what if i could extract the currect sequence.
+5. This pattern made me suspect what if i could extract the currect sequence.
   - For each xref of a dword we need to know which function marked it to `1`.
   - Each function returns the relevant char (if it was marked)
 
@@ -122,13 +127,16 @@ I then ran the **"convert_dwords.py"** Python script to decode the flag from its
   This script provides a set of utilities to assist with analyzing binary functions and uncovering key patterns, such as flag sequences or function calls, using IDA Pro. Below is an overview of the key components and functionalities:
 
   - Renaming relevant functions:
-  ![Flag char detecting](images/2-detecting-flag-char.png)
+    
+      ![Flag char detecting](images/2-detecting-flag-char.png)
 
   - Fetching relevant XRefs:
-  ![Flag xrefs fetching](images/2-detects-xrefs.png)
+    
+      ![Flag xrefs fetching](images/2-detects-xrefs.png)
 
   - The Flag:
-  ![Flag](images/2-detects-flag.png)
+  
+      ![Flag](images/2-detects-flag.png)
 
     - ### Key Functions:
 
@@ -167,7 +175,8 @@ I then ran the **"convert_dwords.py"** Python script to decode the flag from its
 
 ## Step 6: The FLAG
   - The script will construct the right **FLAG**:
-    ![Flag](images/3-final-flag.png)
+    
+      ![Flag](images/3-final-flag.png)
     ```
     l0gging.ur.5tr0ke5@flare-on.com
     ```
