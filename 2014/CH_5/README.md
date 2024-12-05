@@ -150,10 +150,10 @@ I then ran the **"convert_dwords.py"** Python script to decode the flag from its
           - Conditional blocks that might indicate a sequence reset.
         - If the function verifies the presence of a character in the sequence, it will rename it using the `retrieve_value_from_offset` function, with names like `char_<?>`.
 
-    - **`print_cross_references_to_dwords_in_function`**  
-      This function helps reconstruct the flag by analyzing how functions reference specific data elements, often identifying key sequences or flags. It leverages:
-      - **`is_dword_operation`**: Determines whether a `dword` is being accessed.
-      - **`collect_xrefs_to_dwords`**: Tracks cross-references to `dwords`, marking relevant characters in the flag sequence.
+      - **`print_cross_references_to_dwords_in_function`**  
+        This function helps reconstruct the flag by analyzing how functions reference specific data elements, often identifying key sequences or flags. It leverages:
+        - **`is_dword_operation`**: Determines whether a `dword` is being accessed.
+        - **`collect_xrefs_to_dwords`**: Tracks cross-references to `dwords`, marking relevant characters in the flag sequence.
 
     - ### Additional Helper Functions:
 
