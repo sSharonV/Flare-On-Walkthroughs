@@ -110,9 +110,9 @@ Next, we open the **DLL** file in **IDA Pro** for a more detailed static analysi
       
       ![Wanted dword](images/1-wanted-dword.png)
 
-5. This pattern made me suspect what if i could extract the currect sequence.
-  - For each xref of a dword we need to know which function marked it to `1`.
-  - Each function returns the relevant char (if it was marked)
+5. This pattern made me think of a script that will extract the flag...
+    - For each xref of a dword we need to know which function marked it to `1`.
+    - Each function returns the relevant char (if it was marked)
 
 ---
 
@@ -124,7 +124,7 @@ I then ran the **"convert_dwords.py"** Python script to decode the flag from its
 
   - ### IDAPython Helper Script
 
-  This script provides a set of utilities to assist with analyzing binary functions and uncovering key patterns, such as flag sequences or function calls, using IDA Pro. Below is an overview of the key components and functionalities:
+    This script provides a set of utilities to assist with analyzing binary functions and uncovering key patterns, such as flag sequences or function calls, using IDA Pro. Below is an overview of the key components and functionalities:
 
   - Renaming relevant functions:
     
