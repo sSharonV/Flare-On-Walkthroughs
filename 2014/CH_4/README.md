@@ -138,8 +138,10 @@ To bypass this issue i've wrote a Python script to decrypt the values which reve
 
 
 
-- **FLAG**:  
-  `wa1ch.d3m.spl01ts@flare-on.com`
+- **FLAG**:
+  ```  
+  wa1ch.d3m.spl01ts@flare-on.com
+  ```
 
 ---
 
