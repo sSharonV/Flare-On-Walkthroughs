@@ -186,6 +186,8 @@ I then ran the **"convert_dwords.py"** Python script to decode the flag from its
 ## References
 - **DIE**: A tool for identifying file types and embedded resources within executable files.
 - **IDA Pro**: A disassembler and debugger used for static analysis of executables, DLLs, and other binary formats.
-- **GetAsyncKeyState**: A Windows API function used to detect key states in real time, crucial for keylogging functionality.
+- **IDAPython**: A powerful Python API designed to automate tasks and perform advanced analysis within IDA Pro.
+  - It is useful for writing automation scripts and interacting with the IDA Database.
+  - For a more efficient development experience, I recommend using the [`IDACode`](https://github.com/ioncodes/idacode) VSCode extension, which simplifies writing and debugging IDAPython scripts.
 
 ---
