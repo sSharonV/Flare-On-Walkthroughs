@@ -23,6 +23,11 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 - **Challenge 4**: [Hidden Shellcode in Obfuscated JavaScript and PDF Document](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_4)
 
   - Analyze a PDF file containing obfuscated JavaScript and uncover the hidden shellcode within it.
+ 
+- **Challenge 5**: [Reverse Engineering Keylogger DLL](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_5)
+
+  - Performed static analysis of a keylogger DLL to decode the required key sequence.
+  - Developed an IDAPython script that serves as a solid reference for implementing complex functionality within the IDAPython framework, showcasing essential automation techniques for IDA Pro analysis.
 ---
 
 ## Flare-On 2015
