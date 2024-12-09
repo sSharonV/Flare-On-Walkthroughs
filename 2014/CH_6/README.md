@@ -97,7 +97,7 @@ The **ptrace** system call, which is used for debugging, was employed by the bin
     
     ![orig ptrace](images/4-before-bypass.png)
 
-### 3.2 **Patched ptrace disassembly**:
+### 3.2 Patched ptrace disassembly:
   
   ![patched anti debug](images/3-after-bypass.png)
   
@@ -119,11 +119,12 @@ After bypassing the `ptrace` anti-debugging mechanism, the word `bad` was still 
   
   2. Once executed, we'll land at `0x43710C`. Now, let's analyze what happened before that.
     - Set a breakpoint at the start of this block and begin reversing the code!
+     
      ![After first `bad`](images/4-before-first-bad.png)
 
   
    
-  3. The execution of this block will involve the following:
+  4. The execution of this block will involve the following:
      - **`RAX`** will point to the first argument:
         
         ![First arg](images/4-scanned-arg0.png)
@@ -136,7 +137,7 @@ After bypassing the `ptrace` anti-debugging mechanism, the word `bad` was still 
 
          ![decompiled strlen](images/4-strlen-arg0.png)
   
-   4. This suggests that the input must be exactly 10 characters long.
+   5. This suggests that the input must be exactly 10 characters long.
        - Let’s repeat the previous process and analyze the block before the next `bad` occurrence.
       
          ![Before second `bad`](images/5-before-second-bad.png)
