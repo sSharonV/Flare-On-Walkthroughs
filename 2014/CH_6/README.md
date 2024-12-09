@@ -244,7 +244,7 @@ During debugging, I reached a point where the binary started executing **custom 
 
   - We can see that the offsets inside the shellcode are calculated correctly for its execution. This indicates that the shellcode is properly aligned and executed in memory, with each jump or function call pointing to the right location.
 
-  - As we dive deeper, we observe several blocks responsible for decoding **Arg[2]**. These blocks appear to manipulate or transform **Arg[2]** in various ways, likely to prepare it for further processing within the binary.
+  - As we dive deeper, we observe several blocks responsible for decoding **Arg[2]**. These blocks appear to manipulate or transform **Arg[2]** in various ways, likely for validation for further processing within the binary.
 
 ---
 
