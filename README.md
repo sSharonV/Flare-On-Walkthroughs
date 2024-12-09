@@ -28,6 +28,14 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
   - Performed static analysis of a keylogger DLL to decode the required key sequence.
   - Developed an IDAPython script that serves as a solid reference for implementing complex functionality within the IDAPython framework, showcasing essential automation techniques for IDA Pro analysis.
+ 
+- **Challenge 6**: [Reverse Engineering an ELF Binary with Shellcode](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_6)
+
+  - In-depth reverse engineering of an ELF binary, analyzing anti-debugging techniques, uncovering and decoding embedded shellcode, and extracting the hidden flag using dynamic and static analysis methods.
+  - Implements remote-linux debugging and practical usage of strace as part of the dynamic debugging process to investigate system calls and bypass challenges during runtime.
+ 
+- **Challenge 7**: [TBD](TBD)
+  - TBD
 ---
 
 ## Flare-On 2015
