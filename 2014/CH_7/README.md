@@ -38,7 +38,8 @@ The executable is detected as a **Windows** binary.
 - **DIE** (Detect It Easy) marks the file as an executable.
 - The file **stops execution after a few seconds**.
 - **ApateDNS** shows several DNS requests:
-  - ![1 - apateDNS](images/1_apateDNS.png)
+  
+    ![1 - apateDNS](images/1_apateDNS.png)
 
 ---
 
@@ -46,6 +47,7 @@ The executable is detected as a **Windows** binary.
 
 - I've monitored (Procmon) the execution of the executable with 0~2 arguments.
   - Noticed that for 2 arguments there is a reference to `grantz.exe`.
+    
     ![First gratz.exe](images/5-prcmon-2-args.png)
 
 ---
@@ -55,11 +57,14 @@ The executable is detected as a **Windows** binary.
 I loaded the executable into **IDA Pro** for deeper inspection.
 
 - In the **main function**, we noticed that it writes data to **`gratz.exe`**:
+
   ![2 - First block in main.png](images/2-First-block-in-main.png)
 
 - At the end of the function, there is an error where the program attempts to access a **bad memory address** (`951B90`), resulting in a crash:
+
   ![Error on](images/3-memory-error.png).
 - Also, we can see that the name of the failed executable is mentioned at the end of the block:
+
   ![3 - Last block in main.png](images/3-Last-block-in-main.png)
 
 ---
@@ -82,6 +87,7 @@ To continue, I reverse-engineered each function involved in the binary’s behav
   -  `TEB` (Thread Environment block) is pointed by FS register
   -  `PEB` (Process Environment block) located at offset 30h 
   -  Then, to check `BeingDebugged` flag which is located 2 bytes after the start of the structure
+  
   ![6 - CurrentPEBStruct.png](images/6-CurrentPEBStruct.png)
   ![5 - PEBBeingDebugged.png](images/5-PEBBeingDebugged.png)
 
@@ -92,7 +98,7 @@ To continue, I reverse-engineered each function involved in the binary’s behav
   - This check specifically looks for the **VMware signature** (`FF` at the end).
     - Reference: [SIDT](https://www.aldeid.com/wiki/X86-assembly/Instructions/sidt)
 
-  ![7 - Start of RedPill.png](images/7-Start-of-RedPill.png)
+  ![7 - Start of RedPill.png](images/7-Start-of-Redpill.png)
   ![8 - After VMware Check.png](images/8-After-VMware-Check.png)
 
 #### 4.4. Hypervisor Detection (Sub_9511D0: `Chk_VMX_IO_Port`)
@@ -109,15 +115,17 @@ To continue, I reverse-engineered each function involved in the binary’s behav
 #### 4.5. Debugger Check (Sub_9512A0: `Chk_Output_Debug_Str`)
 
 - If a debugger is not attached, the error code will be altered
-  - ![10 - OutputDebeugStr check.png](images/10-OutputDebeugStr-check.png)
-  - ![11 - After OutputDbgStr check.png](images/11-After-OutputDbgStr-check.png)
+
+  ![10 - OutputDebeugStr check.png](images/10-OutputDebeugStr-check.png)
+  ![11 - After OutputDbgStr check.png](images/11-After-OutputDbgStr-check.png)
 
 #### 4.6. Software Breakpoint Detection (Sub_951350: `Chk_Software_Breakpoints`)
 
 - This function detects the presence of **software breakpoints**, particularly the `0xCC` opcode used for breakpoints in debuggers.
   - There are 78 occurrences of `0xCC` without any debugger attached
     - likely used to confuse the analysis.
-  - ![12 - After strange check between subs.png](images/12-After-strange-check-between-subs.png)
+    
+    ![12 - After strange check between subs.png](images/12-After-strange-check-between-subs.png)
 
 #### 4.7. NtGlobalFlags Check (Sub_9513F0: `Chk_NtGlobalFlags_Debugged`)
 
@@ -127,6 +135,7 @@ To continue, I reverse-engineered each function involved in the binary’s behav
     - `FREE_CHECK` (0x20)
     - `VALIDATE_PARAMETERS` (0x40)
   - These flags ensure memory and heap operations are performed correctly, flagging irregularities caused by debuggers.
+  
   ![13 - NtGlobalFlags check.png](images/13-NtGlobalFlagss-check.png)
   ![14 - decompiled NtGlobalFlag.png](images/14-decompiled-NtGlobalFlag.png)
 ---
@@ -136,6 +145,7 @@ To continue, I reverse-engineered each function involved in the binary’s behav
     -  reference: https://cplusplus.com/reference/ctime/tm/
       -  the 7th int (wday) at offset 24 (18h) represents the day in a week
       -  0 = sunday -> 5 = friday
+    
     ![Assembly friday](images/16-FridayCheck.png)
     ![Disassembly friday](images/4-fridaycheck.png)
 
@@ -155,34 +165,41 @@ with more function reversals.
 
 - The program compares the executable name to **backdoge.exe**.
   - The name is checked two characters at a time.
+    
   ![17 - CheckPartBackDoge.png](images/17-CheckPartBackDoge.png)
 
 - Then:
+  
   ![After name check](images/18-AfterNamecheck.png)
 
 #### 6.2. IP Address Resolution Debugging (Sub_951590: `ChkDebugged_IP_Resolved`)
 
 - The function resolves the **IP address** and checks if it matches **localhost** (127.0.0.1).
   - Resolving:
-  ![19 - ResolvedDNS.png](images/19-ResolvedDNS.png)
+
+    ![19 - ResolvedDNS.png](images/19-ResolvedDNS.png)
     - The resolved IP address getting compared also two characters at a time
 - Associated strings:
+- 
     ![20 - AfterDNSDebuggedCheck.png](images/20-AfterDNSDebuggedCheck.png)
 
 #### 6.3. Time Check for 5PM (Sub_9516E0: `Chk_Time_5PM`)
 
 - The function checks if the current time is **5 PM**, using the `tm_hour` field from `time64`.
+  
   ![21 - 5PM Check.png](images/21-5PM-Check.png)
   ![disasssembly 5pm check](images/6-5pm-check.png)
 
 - Associated strings:
-  - ![22 - After 5PM Check.png](images/22-After-5PM-Chheck.png)
+  
+  ![22 - After 5PM Check.png](images/22-After-5PM-Chheck.png)
 
 ---
 
 ### 7. XOR Data with Executable Path
 
 - Just after those functions we see a block that also  XORs the data:
+  
   ![Xors path](images/7-xors-path.png)
   - Remember that the program checked for a specific name: `backdoge.exe`
 
@@ -193,26 +210,36 @@ with more function reversals.
 #### 8.1. Root Server Check (Sub_9517A0: `Chk_ERoot_Servers`)
 
 - The malware attempts to contact **`e.root-servers.net`** for validation.
+  
   ![23 - root-servers check.png](images/23-root-servers-check.png)
+
   - It checks and **XORs** a blob with a hardcoded **IP address**.
-  ![24 - hardcoded-ip.png](images/24-hardcoded-ip.png)
+  
+      ![24 - hardcoded-ip.png](images/24-hardcoded-ip.png)
 
 #### 8.2. Tweet Check(Sub_9518A0: `Chk_Twitter_URL`)
 
 -  First, the malware presents sets it's user-agent to 'ZBot'
-    - [Reference](https://www.proofpoint.com/us/threat-reference/zeus-trojan-zbot) 
+    - [Reference](https://www.proofpoint.com/us/threat-reference/zeus-trojan-zbot)
+      
     ![ZBOT referenrece](images/8-zbot-useragent.png)
 - Then, the next URL is constructed in the memory:
+  
   ![twitter in memory](images/24-twitter-string-in-memory.png)
 - It's content being checked for the string: `Secluded Hi`
+  
   ![string for strstr](images/8-check-for-substring.png)
 - After this 11 characters are being copied to new allocated memory:
+  
   ![New allocated memory](images/8-buffer-creation-for-jackrat.png)
-- Because the tweet isn't accessible today i've managed to get it from 
-![old solutions](images/8-old-tweet.png)
+- Because the tweet isn't accessible today i've managed to get it from
+  
+  ![old solutions](images/8-old-tweet.png)
+  
   - According to this `Seculded Hi` is found just before `jackRAT` at offset Bh (11)
   - The string `jackRAT` will be copied (`Count` = 7) to the allocated buffer 
 - Then we get XORs again:
+  
   ![XORS again](images/8-xors-again.png)
 ---
 
@@ -222,7 +249,9 @@ with more function reversals.
 - When starting to debug this block we see the executable arguments being referenced
 
 - Let's look what is being overwritten to `data_raw`:
+  
   ![before knowing args](images/8-mz-pe-overwritten.png)
+  
   - First byte `data_raw` - first char from **`arg[1][0]`**
   - Second byte `byte_8631F9` - second byte from **`arg[1][1]`**
   - Third byte `byte_863278` - third byte from **`arg[2][0]`**
@@ -235,7 +264,9 @@ with more function reversals.
 
 #### 9.2. Dump `gratz.exe`
   - The manipulated XORed data being dumped to this exe
+    
     ![dump gratz](images/9-start-gratz.png)
+    
   - Let's dump the data before all the manipulation to the data we saw XORed at each step.
     ```python
     import idaapi
@@ -264,6 +295,7 @@ with more function reversals.
       1. `the final countdown` -> `omglob` -> `you're so good` -> `f` -> `I'm gonna sandbox your face` -> `Such fire. Much burn. Wow.` -> `\t\x00\x00\x01` -> `! 50 1337` -> `MATH IS HARD` -> `SHOPPING IS HARD` -> `\x01\x02\x03\x05\x00x08\r` -> `backdoge.exe` -> `192.203.230.10` -> `jackRAT`
       2. `the final countdown` -> `omglob` -> `you're so bad` -> `f` -> `I'm gonna sandbox your face` -> `Such fire. Much burn. Wow.` -> `\t\x00\x00\x01` -> `! 50 1337` -> `MATH IS HARD` -> `SHOPPING IS HARD` -> `\x01\x02\x03\x05\x00x08\r` -> `backdoge.exe` -> `192.203.230.10` -> `jackRAT`
   - When the script done executing it will save the found candidates to the local folder
+    
     ![Found files](images/9-both-exes.png)
 
 ---
@@ -271,10 +303,12 @@ with more function reversals.
 ### 10. Extracting the FLAG
 
 After successfully executing the program, I analyzed the contents:
+
   ![27 - dotnet file works.png](images/27-dotnet-file-works.png)
 
 - Using **DNSpy**, I was able to identify key functions:
   - The **Form1** function initiates a new thread with the **luluzors** function:
+    
     ![28 - Form1.png](images/28-Form1.png)
     ![29 - luluzors.png](images/29-lulozrs.png)
     ![30 - decoders.png](images/30-decoders.png)
