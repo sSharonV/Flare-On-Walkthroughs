@@ -4,30 +4,38 @@ In this walkthrough, I’ll cover the detailed analysis of the executable encoun
 
 ---
 
+Here is the updated Table of Contents (TOC) for your walkthrough:
+
+---
+
 ## Table of Contents
 
 1. [Initial Analysis](#1-initial-analysis)
-2. [Monitoring with Process Monitor](#2-monitoring-with-process-monitor)
-3. [Using IDA Pro for Static Analysis](#3-using-ida-pro-for-static-analysis)
+2. [Basic Dynamic Analysis](#2-basic-dynamic-analysis)
+3. [Starting IDA Pro](#3-starting-idapro)
 4. [Reversing Key Functions](#4-reversing-key-functions)
-    - 4.1 [Anti-Debugging (Sub_951030: `ChkDebugged`)](#41-anti-debugging-sub_951030-chkdebugged)
-    - 4.2 [Process Environment Block Check (Sub_9510C0: `CheckPEB_BeingDebugged`)](#42-process-environment-block-check-sub_9510c0-checkpeb_beingdebugged)
-    - 4.3 [VMware Detection (Sub_951130: `ChkSIDT_Vmware`)](#43-vmware-detection-sub_951130-chksidt_vmware)
-    - 4.4 [Hypervisor Detection (Sub_9511D0: `ChkVMX_IO_Port`)](#44-hypervisor-detection-sub_9511d0-chkvmx_io_port)
-    - 4.5 [Debugger Check (Sub_9512A0: `ChkOutput_Debug_Str`)](#45-debugger-check-sub_9512a0-chkoutput_debug_str)
-    - 4.6 [Software Breakpoint Detection (Sub_951350: `ChkSoftware_Breakpoints`)](#46-software-breakpoint-detection-sub_951350-chksoftware_breakpoints)
-    - 4.7 [NtGlobalFlags Check (Sub_9513F0: `ChkNtGlobalFlags_Debugged`)](#47-ntglobalflags-check-sub_9513f0-chkntglobalflags_debugged)
+    - 4.1 [Anti-Debugging (Sub_951030: `Chk_IsDebuggerPresent`)](#41-anti-debugging-sub_951030-chk_isdebuggerpresent)
+    - 4.2 [Process Environment Block Check (Sub_9510C0: `Chk_PEB_BeingDebugged`)](#42-process-environment-block-check-sub_9510c0-chk_peb_beingdebugged)
+    - 4.3 [VMware Detection (Sub_951130: `Chk_SIDT_Vmware`)](#43-vmware-detection-sub_951130-chk_sidt_vmware)
+    - 4.4 [Hypervisor Detection (Sub_9511D0: `Chk_VMX_IO_Port`)](#44-hypervisor-detection-sub_9511d0-chk_vmx_io_port)
+    - 4.5 [Debugger Check (Sub_9512A0: `Chk_Output_Debug_Str`)](#45-debugger-check-sub_9512a0-chk_output_debug_str)
+    - 4.6 [Software Breakpoint Detection (Sub_951350: `Chk_Software_Breakpoints`)](#46-software-breakpoint-detection-sub_951350-chk_software_breakpoints)
+    - 4.7 [NtGlobalFlags Check (Sub_9513F0: `Chk_NtGlobalFlags_Debugged`)](#47-ntglobalflags-check-sub_9513f0-chk_ntglobalflags_debugged)
+    - 4.8 [Time Check (Sub_851460: `Chk_Friday`)](#48-time-check-sub_851460-chk_friday)
 5. [Program Path](#5-program-path)
 6. [Further Function Analysis](#6-further-function-analysis)
-    - 6.1 [Executable Name Check (Sub_9514F0: `ChkName_backdoge`)](#61-executable-name-check-sub_9514f0-chkname_backdoge)
+    - 6.1 [Executable Name Check (Sub_9514F0: `Chk_Name_backdoge`)](#61-executable-name-check-sub_9514f0-chk_name_backdoge)
     - 6.2 [IP Address Resolution Debugging (Sub_951590: `ChkDebugged_IP_Resolved`)](#62-ip-address-resolution-debugging-sub_951590-chkdebugged_ip_resolved)
-    - 6.3 [Time Check for 5PM (Sub_9516E0: `ChkTime_5PM`)](#63-time-check-for-5pm-sub_9516e0-chktime_5pm)
-    - 6.4 [Root Server Check (Sub_9517A0: `ChkERoot_Servers`)](#64-root-server-check-sub_9517a0-chkeroot_servers)
-7. [Crashing Issue with Executable](#7-crashing-issue-with-executable)
-8. [Creating the Working Executable](#8-creating-the-working-executable)
-9. [Extracting the FLAG](#9-extracting-the-flag)
-    - 9.1 [Decoding Data](#91-decoding-data)
-10. [Final Note](#10-final-note)
+    - 6.3 [Time Check for 5PM (Sub_9516E0: `Chk_Time_5PM`)](#63-time-check-for-5pm-sub_9516e0-chk_time_5pm)
+7. [XOR Data with Executable Path](#7-xor-data-with-executable-path)
+8. [Root Server and Twitter URL Check](#8-root-server-and-twitter-url-check)
+    - 8.1 [Root Server Check (Sub_9517A0: `Chk_ERoot_Servers`)](#81-root-server-check-sub_9517a0-chk_eroot_servers)
+    - 8.2 [Tweet Check (Sub_9518A0: `Chk_Twitter_URL`)](#82-tweet-check-sub_9518a0-chk_twitter_url)
+9. [Crashing Issue with Executable](#9-crashing-issue-with-executable)
+10. [Creating the Working Executable](#10-creating-the-working-executable)
+11. [Extracting the FLAG](#11-extracting-the-flag)
+    - 11.1 [Decoding Data](#111-decoding-data)
+12. [Final Note](#12-final-note)
 
 ---
 
