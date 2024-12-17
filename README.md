@@ -34,7 +34,7 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
   - In-depth reverse engineering of an ELF binary, analyzing anti-debugging techniques, uncovering and decoding embedded shellcode, and extracting the hidden flag using dynamic and static analysis methods.
   - Implements remote-linux debugging and practical usage of strace as part of the dynamic debugging process to investigate system calls and bypass challenges during runtime.
  
-- **Challenge 7**: [Decoding Obfuscated Executable by Brute Forcing]([TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_7)
+- **Challenge 7**: [Decoding Obfuscated Executable by Brute Forcing](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_7)
   - Comprehensive reverse engineering of anti-debugging techniques used by an executable, including VMware detection and dynamic anti-debugging measures.
 ---
 
