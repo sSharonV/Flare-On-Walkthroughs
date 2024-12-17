@@ -1,4 +1,4 @@
-### Flare-On 2014 Challenge 6 Walkthrough: Reverse Engineering an ELF Binary with Shellcode
+# Flare-On 2014 Challenge 6 Walkthrough: Reverse Engineering an ELF Binary with Shellcode
 
 In this walkthrough, we will explore the steps taken to analyze and reverse engineer an **ELF** binary. This process includes techniques such as **static analysis** using **IDA Pro**, **dynamic analysis** with **strace**, and **debugging** to eventually extract the hidden **FLAG** expected within custom **shellcode**.
 
