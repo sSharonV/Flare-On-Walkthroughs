@@ -43,9 +43,9 @@ This walkthrough explains how I reversed and debugged the executable, the anti-d
 
 This walkthrough focuses on analyzing and reversing the Flare-On 2014 Challenge 7 binary. Key objectives include:
 
-- XORed Raw Data: Identifying and reversing XOR operations.
-- Brute-Force Script: Creating a script to explore execution paths for a valid executable.
-- Obfuscated .NET Executable: Decoding a .NET executable to extract the flag.
+- **XORed Raw Data**: Identifying and reversing XOR operations.
+- **Brute-Force Script**: Creating a script to explore execution paths for a valid executable.
+- **Obfuscated .NET Executable**: Decoding a .NET executable to extract the flag.
   
 ---
 
