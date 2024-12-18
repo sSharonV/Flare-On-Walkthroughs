@@ -42,11 +42,11 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
 ## Flare-On 2015
 
-- **Challenge 1**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_1)  
-  - TBD
+- **Challenge 1**: [Cracking a Password For an Executable](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_1)  
+  - Analyzing an executable to reveal the password.
   
-- **Challenge 2**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_2)  
-  - TBD
+- **Challenge 2**: [Cracking a More Complex Password](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_2)  
+  - Analyzing an executable with more complex methods to reveal the password
 
 - **Challenge 3**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2015/CH_3)
   - TBD
