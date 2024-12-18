@@ -1,4 +1,4 @@
-# Flare-On 2015 Challenge 1: Cracking a Password For an Executable
+# Flare-On 2015 Challenge 1 Walkthrough: Cracking a Password For an Executable
 
 This walkthrough focuses on cracking the password requested by an executable, uncovering how the password is hidden and subsequently decoded.
 
