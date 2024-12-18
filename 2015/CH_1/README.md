@@ -51,7 +51,8 @@ Next, we open the executable file in **IDA Pro**, a popular disassembler, to ins
 Now that we understand how the input is XORed, we need to extract the relevant buffer and apply the XOR decryption.
 
 - **Extracting the XOR buffer**: We dump the buffer from memory at the addresses `0x402140` to `0x402158`. The extracted data is a 24-byte sequence, which we convert into an array.
-    ![Convert to hex](images/3-convert-to-hex.png)
+
+   ![Convert to hex](images/3-convert-to-hex.png)
 
     ```python
     [+] Dump 0x402140 - 0x402158 (24 bytes) :
