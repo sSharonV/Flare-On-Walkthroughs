@@ -5,7 +5,8 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 ## Table of Contents
 
 - [Flare-On 2014](#flare-on-2014)
-- [Flare-On 2015](#flare-on-2015) 
+- [Flare-On 2015](#flare-on-2015)
+- [Flare-On 2016](#flare-on-2016) 
 ---
 
 ## Flare-On 2014
@@ -36,10 +37,25 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
  
 - **Challenge 7**: [Decoding Obfuscated Executable by Brute Forcing](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2014/CH_7)
   - Comprehensive reverse engineering of anti-debugging techniques used by an executable, including VMware detection and dynamic anti-debugging measures.
+    
 ---
 
 ## Flare-On 2015
 
-TBD
+- **Challenge 1**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_1)  
+  - TBD
+  
+- **Challenge 2**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_2)  
+  - TBD
 
+- **Challenge 3**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2015/CH_3)
+  - TBD
+
+---
+
+## Flare-On 2016
+
+- **Challenge 1**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2016/CH_1)  
+  - TBD
+  
 ---
