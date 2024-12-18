@@ -169,8 +169,12 @@ After extracting the relevant data, you can use the `crack_password.py` script (
 The decrypted password is:
 
 ```
-a_Little_b1t_harder_plez@flare-on.com;
+You crushed that last one! Let's up the game.
+Enter the password> a_Little_b1t_harder_plez@flare-on.com
+You are success
 ```
+
+
 
 ---
 
