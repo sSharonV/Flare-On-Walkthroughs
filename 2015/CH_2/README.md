@@ -66,55 +66,55 @@ Next, we use dynamic debugging to trace the execution of the password-checking f
 
 By examining how the registers are manipulated during the password decryption process, we can decipher the logic behind the password validation. The process involves performing bitwise operations on the input password, specifically XORing each character with a constant `0xC7`, followed by other operations like `ROL` and `ADC`.
 
-    ```python
-    AX = [0, 0]    
-    BX = [0, 0]     
-    CX = [0, 0x25]  
-    DX = [0, 0]     
+```python
+AX = [0, 0]    
+BX = [0, 0]     
+CX = [0, 0x25]  
+DX = [0, 0]     
 
-    KEY_XOR = 0xC7
-    # Start the loop over each character in the input string
-    for i, char in enumerate(input_str):
+KEY_XOR = 0xC7
+# Start the loop over each character in the input string
+for i, char in enumerate(input_str):
 
-        DX = BX             # MOV DX,BX
-        DX[1] &= 3          # AND DX,3h
-        AX = [0x01, 0xC7]   # MOV AX,1C7h
-        CF = 0x01           # SAHF (CF = AH[0] = 1(const))
+    DX = BX             # MOV DX,BX
+    DX[1] &= 3          # AND DX,3h
+    AX = [0x01, 0xC7]   # MOV AX,1C7h
+    CF = 0x01           # SAHF (CF = AH[0] = 1(const))
 
-        # LOADSB (AL = EDI, EDI++ (while DF = 0))
-        # XOR (AL,C7h)
-        AX[1] = ord(char) ^ KEY_XOR
+    # LOADSB (AL = EDI, EDI++ (while DF = 0))
+    # XOR (AL,C7h)
+    AX[1] = ord(char) ^ KEY_XOR
 
-        # XCHG (CL,DL)
-        TEMP_CL = CX[1]
-        CX[1] = DX[1]
-        DX[1] = TEMP_CL
+    # XCHG (CL,DL)
+    TEMP_CL = CX[1]
+    CX[1] = DX[1]
+    DX[1] = TEMP_CL
 
-        # ROL (AH, CL)
-        AX[0] <<= CX[1]
+    # ROL (AH, CL)
+    AX[0] <<= CX[1]
 
-        # ADC (AL,AH) (AL = AL + AH + CF)
-        AX[1] += AX[0] + CF
+    # ADC (AL,AH) (AL = AL + AH + CF)
+    AX[1] += AX[0] + CF
 
-        # XCHG (CL,DL)
-        TEMP_CL = CX[1]
-        CX[1] = DX[1]
-        DX[1] = TEMP_CL
+    # XCHG (CL,DL)
+    TEMP_CL = CX[1]
+    CX[1] = DX[1]
+    DX[1] = TEMP_CL
 
-        # XOR (DX,DX)
-        DX = [0,0]
+    # XOR (DX,DX)
+    DX = [0,0]
 
-        # AND (AX,0FFh) (AX[0] = 0)
-        AX = [0, AX[1]]
-        BX += AX
-    ```
+    # AND (AX,0FFh) (AX[0] = 0)
+    AX = [0, AX[1]]
+    BX += AX
+```
 
 - After processing each character of the password, the final values of the registers are compared. If they match, the password is deemed correct.
 
     - Key operations involved include:
         - `scasb`: compares `AL` with the byte at `ES:EDI` and sets the flags.
         - `cmovnz`: moves `DX` to `CX` if `ZF=0`, zeroing `CX` if the values don't match.
-        - `jecxz`: jumps if `ECX` is zeroed, ensuring that the check passes if the password is correct.
+        - `jecxz`: jumps if `ECX` is zeroed -> so we want to go left.
 
 ---
 
@@ -186,5 +186,3 @@ a_Little_b1t_harder_plez@flare-on.com;
 - **CyberChef**: A web-based tool used for encoding, decoding, and applying various data transformations.
 
 ---
-
-This concludes the walkthrough for cracking the password in this challenge. By following these steps, you can analyze and reverse-engineer the executable to recover the hidden password.
