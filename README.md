@@ -48,7 +48,7 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 - **Challenge 2**: [Cracking a More Complex Password](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2015/CH_2)  
   - Analyzing an executable with more complex methods to reveal the password
 
-- **Challenge 3**: [Extracting the Flag from `elfie.exe`](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2015/CH_3)
+- **Challenge 3**: [Extracting the Flag from PyInstaller Executable](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2015/CH_3)
   - Analyzing an executable packed with PyInstaller and extract its overlay to reveal the flag
 
 ---
