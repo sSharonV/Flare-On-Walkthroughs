@@ -10,8 +10,7 @@ Welcome to the walkthrough for solving one of the Flare-On challenges! In this g
 - [Step 3: Exploring the `to_crack` Function](#step-3-exploring-the-to_crack-function)
     - [3.1. Encoding Phase](#31-encoding-phase)
     - [3.2. Analysis of the Encoding Process](#32-analysis-of-the-encoding-process)
-- [Step 4: Decoding the Password](#step-4-decoding-the-password)
-- [Step 5: The Flag](#step-5-the-flag)
+- [Step 4: The Flag](#step-4-the-flag)
 - [References](#references)
 
 ---
@@ -53,21 +52,21 @@ At this point, we begin to investigate the `to_crack` function in greater detail
 
     ![Str1 alloc](images/2-decompiled-Str1-length.png)
 
-- ### 3.1. Encoding Phase:
+- ### 3.1. Encoding Phase
     - The encoding process was traced to better understand how the password is transformed:
 
         ![Traced block](images/3-traced-block.png)
 
     - The key `byte_1E3000` is used for encoding the password.
-    - This key is 64 bytes in size and is hard-coded in the binary.
-
-        ![Hard-coded](images/3-dumped-key.png)
+        - This key is 64 bytes in size and is hard-coded in the binary.
+    
+            ![Hard-coded](images/3-dumped-key.png)
 
     - The main manipulation steps in this phase are as follows:
 
         ![decompiled manipulation](images/2-main-manipulate-block.png)
 
-- ### 3.2. Analysis of the Encoding Process:
+- ### 3.2. Analysis of the Encoding Process
 
     The following pseudo-code illustrates the encoding logic within the `to_crack` function:
 
