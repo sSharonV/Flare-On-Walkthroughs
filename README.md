@@ -50,6 +50,9 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
 - **Challenge 3**: [Extracting the Flag from PyInstaller Executable](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2015/CH_3)
   - Analyzing an executable packed with PyInstaller and extract its overlay to reveal the flag
+ 
+- **Challenge 4**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2015/CH_4)
+  - TBD
 
 ---
 
@@ -57,5 +60,9 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
 - **Challenge 1**: [Cracking a Password For an Executable](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2016/CH_1)  
   - Analyzing an executable to reveal the password.
+ 
+- **Challenge 2**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/tree/main/2016/CH_2)
+  - TBD
+
   
 ---
