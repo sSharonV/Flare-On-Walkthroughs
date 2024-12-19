@@ -1,4 +1,4 @@
-# Flare-On 2015 Challenge 3 Walkthrough: Extracting the Flag from `elfie.exe`
+# Flare-On 2015 Challenge 3 Walkthrough: Extracting the Flag from PyInstaller Executable
 
 In this guide, we’ll break down the process of extracting the flag hidden inside a Windows executable. This challenge involves unpacking a PyInstaller-packed executable, decompiling the extracted code, and reversing a simple obfuscation to uncover the flag.
 
