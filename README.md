@@ -55,7 +55,7 @@ This repository contains detailed walkthroughs and solutions for the Flare-On ch
 
 ## Flare-On 2016
 
-- **Challenge 1**: [TBD](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2016/CH_1)  
-  - TBD
+- **Challenge 1**: [Cracking a Password For an Executable](https://github.com/sSharonV/Flare-On-Walkthroughs/blob/main/2016/CH_1)  
+  - Analyzing an executable to reveal the password.
   
 ---
