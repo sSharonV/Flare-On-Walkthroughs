@@ -38,6 +38,7 @@ Upon further inspection, it looks like the executable is Python code that has be
 
 ### Key Indicators:
 - **_MEIPASS2**: This environment variable is often set during the unpacking process by PyInstaller. It points to a temporary directory where files are unpacked at runtime.
+  
     ![Env variable](images/2-check_pyinstaller_tmp_folder.png)
     - [Reference - PyInstaller](https://pyinstaller.org/en/stable/runtime-information.html)
 - **PyInstaller Icon**: Tools like CFF Explorer show the icon associated with files packed by PyInstaller.
@@ -138,5 +139,4 @@ Flag: 3rmahg3rd.b0b.d0ge@flare-on.com
 ### References
 
 - **PyInstaller Documentation**: Provides information on how PyInstaller packages Python applications into standalone executables.  
-- **pyextractor**: A tool used to extract files packed with PyInstaller.
-- **Python Decompilers**: Tools like `pyextractor` help reverse Python bytecode into readable Python code.
+- **pyinxtractor**: A tool used to extract files packed with PyInstaller.
