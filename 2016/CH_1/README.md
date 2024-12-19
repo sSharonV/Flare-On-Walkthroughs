@@ -1,5 +1,5 @@
 
-# Flare-On 2016 Challenge 1 Walkthrough: Cracking the Password
+# Flare-On 2016 Challenge 1 Walkthrough: Cracking a Password For an Executable
 
 Welcome to the walkthrough for solving one of the Flare-On challenges! In this guide, we will detail the process of cracking the password hidden within a binary executable.
 
