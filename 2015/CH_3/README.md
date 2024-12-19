@@ -132,7 +132,7 @@ The output from the decompiled code reveals a string that is partially reversed.
 ![Cyberchef](images/3-reversed-flag.png)
 
 ```
-Flag: 3rmahg3rd.b0b.d0ge@flare-on.com
+Flag: Elfie.L0000ves.YOOOO@flare-on.com
 ```
 ---
 
